@@ -23,7 +23,12 @@ class Course(models.Model):
     name = models.CharField(max_length=60, null=False, blank=False)
     code = models.CharField(max_length=10, null=False, blank=False)
     description = models.CharField(max_length=150, null=False, blank=False)
-    level = models.CharField(max_length=1, choices=LEVEL, default='B', null=False, blank=False)  # noqa : E501
+    level = models.CharField(
+        max_length=1,
+        choices=LEVEL,
+        default='B',
+        null=False,
+        blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

@@ -1,0 +1,31 @@
+from django.db import models
+
+
+class Student(models.Model):
+    name = models.CharField(max_length=60, null=False, blank=False)
+    rg = models.CharField(max_length=9, null=False, blank=False)
+    cpf = models.CharField(max_length=11, null=False, blank=False)
+    date_birth = models.DateField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self) -> str:
+        return f'{self.name}'
+
+
+class Course(models.Model):
+    LEVEL = (
+        ('B', 'Basic'),
+        ('I', 'Intermediate'),
+        ('A', 'Advanced'),
+    )
+
+    name = models.CharField(max_length=60, null=False, blank=False)
+    code = models.CharField(max_length=10, null=False, blank=False)
+    description = models.CharField(max_length=150, null=False, blank=False)
+    level = models.CharField(max_length=1, choices=LEVEL, default='B', null=False, blank=False)  # noqa : E501
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self) -> str:
+        return f'{self.name}'

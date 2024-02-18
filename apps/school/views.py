@@ -1,4 +1,6 @@
 from rest_framework import viewsets, generics
+from rest_framework.authentication import BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
 from apps.school.models import Student, Course, Registration
 from apps.school.serializer import (
     StudentSerializer,
@@ -19,6 +21,8 @@ class StudentsViewSet(viewsets.ModelViewSet):
 
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
+    authentication_classes = [BasicAuthentication]
+    permission_classes = [IsAuthenticated]
 
 
 class CoursesViewSet(viewsets.ModelViewSet):
@@ -31,6 +35,8 @@ class CoursesViewSet(viewsets.ModelViewSet):
 
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
+    authentication_classes = [BasicAuthentication]
+    permission_classes = [IsAuthenticated]
 
 
 class RegistrationViewSet(viewsets.ModelViewSet):
@@ -43,6 +49,8 @@ class RegistrationViewSet(viewsets.ModelViewSet):
 
     queryset = Registration.objects.all()
     serializer_class = RegistrationSerializer
+    authentication_classes = [BasicAuthentication]
+    permission_classes = [IsAuthenticated]
 
 
 class ListRegistrationsStudent(generics.ListAPIView):
@@ -57,6 +65,8 @@ class ListRegistrationsStudent(generics.ListAPIView):
         queryset = Registration.objects.filter(student_id=self.kwargs['pk'])
         return queryset
     serializer_class = ListRegistrationsStudentSerializer
+    authentication_classes = [BasicAuthentication]
+    permission_classes = [IsAuthenticated]
 
 
 class ListRegistrationsCourse(generics.ListAPIView):
@@ -71,3 +81,5 @@ class ListRegistrationsCourse(generics.ListAPIView):
         queryset = Registration.objects.filter(course_id=self.kwargs['pk'])
         return queryset
     serializer_class = ListRegistrationsCourseSerializer
+    authentication_classes = [BasicAuthentication]
+    permission_classes = [IsAuthenticated]

@@ -39,8 +39,8 @@ class Course(models.Model):
 class Registration(models.Model):
     PERIOD = (
         ('M', 'Morning'),
-        ('E', 'Evening'),
-        ('N', 'Nocturne'),
+        ('A', 'Afternoon'),
+        ('N', 'Night'),
     )
 
     student = models.ForeignKey(Student, on_delete=models.CASCADE)

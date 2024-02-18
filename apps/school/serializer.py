@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from apps.school.models import Student, Course
+from apps.school.models import Student, Course, Registration
 
 
 class StudentSerializer(serializers.ModelSerializer):
@@ -12,3 +12,9 @@ class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
         fields = ['id', 'name', 'code', 'description', 'level']
+
+
+class RegistrationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Registration
+        exclude = ['created_at', 'updated_at']

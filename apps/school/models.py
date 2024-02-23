@@ -3,6 +3,7 @@ from django.db import models
 
 class Student(models.Model):
     name = models.CharField(max_length=60, null=False, blank=False)
+    phone = models.CharField(max_length=11, default='')
     rg = models.CharField(max_length=9, null=False, blank=False)
     cpf = models.CharField(max_length=11, null=False, blank=False)
     date_birth = models.DateField()

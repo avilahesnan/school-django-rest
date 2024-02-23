@@ -1,4 +1,5 @@
-from rest_framework import viewsets, generics
+from rest_framework import viewsets, generics, status
+from rest_framework.response import Response
 from apps.school.models import Student, Course, Registration
 from apps.school.serializer import (
     StudentSerializer,
@@ -37,6 +38,15 @@ class CoursesViewSet(viewsets.ModelViewSet):
 
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
+
+    def create(self, request):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            response = Response(serializer.data, status=status.HTTP_201_CREATED)  # noqa: E501
+            id = str(serializer.data['id'])
+            response['Location'] = request.build_absolute_uri() + id
+        return response
 
 
 class RegistrationViewSet(viewsets.ModelViewSet):

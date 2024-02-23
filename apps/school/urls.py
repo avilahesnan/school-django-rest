@@ -19,6 +19,6 @@ router.register('registrations', RegistrationViewSet, basename='Registrations')
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('student/<int:pk>/registrations/', ListRegistrationsStudent.as_view(), name='ListRegistrationsStudent'),  # noqa: E501
-    path('course/<int:pk>/registrations/', ListRegistrationsCourse.as_view(), name='ListRegistrationsCourse'),  # noqa: E501
+    path('students/<int:pk>/registrations/', ListRegistrationsStudent.as_view(), name='ListRegistrationsStudent'),  # noqa: E501
+    path('courses/<int:pk>/registrations/', ListRegistrationsCourse.as_view(), name='ListRegistrationsCourse'),  # noqa: E501
 ]

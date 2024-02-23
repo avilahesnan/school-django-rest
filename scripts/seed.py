@@ -31,11 +31,10 @@ def create_courses(quantity_courses):
 
         name, description = random.choice(list(options.items()))
         code = '{}{}-{}'.format(random.choice('ABCDEF'), random.randrange(10, 99), random.randrange(1, 9))  # noqa: E501
-        del options[name]
         level = random.choice('BIA')
         c = Course(name=name, code=code, description=description, level=level)  # noqa: E501
         c.save()
 
 
-create_students(100)
+# create_students(100)
 create_courses(5)

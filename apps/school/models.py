@@ -7,6 +7,7 @@ class Student(models.Model):
     rg = models.CharField(max_length=9, null=False, blank=False)
     cpf = models.CharField(max_length=11, null=False, blank=False)
     date_birth = models.DateField()
+    photo = models.ImageField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

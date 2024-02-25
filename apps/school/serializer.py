@@ -5,13 +5,13 @@ from apps.school.models import Student, Course, Registration
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
-        fields = ['id', 'name', 'rg', 'cpf', 'date_birth']
+        fields = ['id', 'name', 'rg', 'cpf', 'date_birth', 'photo']
 
 
 class StudentSerializerV2(serializers.ModelSerializer):
     class Meta:
         model = Student
-        fields = ['id', 'name', 'phone', 'rg', 'cpf', 'date_birth']
+        fields = ['id', 'name', 'phone', 'rg', 'cpf', 'date_birth', 'photo']
 
 
 class CourseSerializer(serializers.ModelSerializer):

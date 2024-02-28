@@ -1,4 +1,5 @@
-from rest_framework import viewsets, generics, status
+from rest_framework import viewsets, generics, status, filters
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.response import Response
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
@@ -22,6 +23,9 @@ class StudentsViewSet(viewsets.ModelViewSet):
     '''
 
     queryset = Student.objects.all()
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]  # noqa: E501
+    ordering_fields = ['name']
+    search_fields = ['name', 'cpf']
 
     def get_serializer_class(self):
         if self.request.version == 'v2':
@@ -40,6 +44,10 @@ class CoursesViewSet(viewsets.ModelViewSet):
 
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]  # noqa: E501
+    ordering_fields = ['name']
+    search_fields = ['name', 'code']
+    filterset_fields = ['level']
 
     def create(self, request):
         serializer = self.serializer_class(data=request.data)
@@ -62,6 +70,10 @@ class RegistrationViewSet(viewsets.ModelViewSet):
     queryset = Registration.objects.all()
     serializer_class = RegistrationSerializer
     http_method_names = ['get', 'post', 'put', 'patch']
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]  # noqa: E501
+    ordering_fields = ['student']
+    search_fields = ['student', 'course']
+    filterset_fields = ['period']
 
     @method_decorator(cache_page(30))
     def dispatch(self, *args, **kwargs):
@@ -80,6 +92,8 @@ class ListRegistrationsStudent(generics.ListAPIView):
         queryset = Registration.objects.filter(student_id=self.kwargs['pk'])
         return queryset
     serializer_class = ListRegistrationsStudentSerializer
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]  # noqa: E501
+    ordering_fields = ['course']
 
 
 class ListRegistrationsCourse(generics.ListAPIView):
@@ -94,3 +108,5 @@ class ListRegistrationsCourse(generics.ListAPIView):
         queryset = Registration.objects.filter(course_id=self.kwargs['pk'])
         return queryset
     serializer_class = ListRegistrationsCourseSerializer
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]  # noqa: E501
+    ordering_fields = ['student']

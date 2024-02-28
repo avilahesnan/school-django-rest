@@ -29,7 +29,7 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'storages',
     'admin_honeypot',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -152,7 +153,15 @@ AWS_HEADERS = {
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-STATIC_URL = '/static/'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
+
+STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'setup/static')
+]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -188,6 +197,8 @@ REST_FRAMEWORK = {
     #     'rest_framework.renderers.JSONRenderer',
     #     'rest_framework_xml.renderers.XMLRenderer',
     # ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',  # noqa: E501
+    'PAGE_SIZE': 10,
 }
 
 CORS_ALLOWED_ORIGINS = [

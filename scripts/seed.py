@@ -16,10 +16,11 @@ def create_students(quantity_students):
     for _ in range(quantity_students):
         cpf = CPF()
         name = fake.name()
+        phone = "({}) 9{}-{}".format(random.randrange(10, 21), random.randrange(4000, 9999), random.randrange(4000, 9999))  # noqa: E501
         rg = '{}{}{}{}'.format(random.randrange(10, 99), random.randrange(100, 999), random.randrange(100, 999), random.randrange(0, 9))  # noqa: E501
         cpf = cpf.generate()
         date_birth = fake.date_between(start_date='-18y', end_date='today')
-        a = Student(name=name, rg=rg, cpf=cpf, date_birth=date_birth)
+        a = Student(name=name, phone=phone, rg=rg, cpf=cpf, date_birth=date_birth)  # noqa: E501
         a.save()
 
 
@@ -36,5 +37,5 @@ def create_courses(quantity_courses):
         c.save()
 
 
-# create_students(100)
+create_students(50)
 create_courses(5)

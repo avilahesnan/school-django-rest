@@ -22,7 +22,7 @@ class StudentsViewSet(viewsets.ModelViewSet):
         List of all students.
     '''
 
-    queryset = Student.objects.all()
+    queryset = Student.objects.all().order_by('name')
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]  # noqa: E501
     ordering_fields = ['name']
     search_fields = ['name', 'cpf']
@@ -42,7 +42,7 @@ class CoursesViewSet(viewsets.ModelViewSet):
         List of all courses.
     '''
 
-    queryset = Course.objects.all()
+    queryset = Course.objects.all().order_by('name')
     serializer_class = CourseSerializer
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]  # noqa: E501
     ordering_fields = ['name']
@@ -67,7 +67,7 @@ class RegistrationViewSet(viewsets.ModelViewSet):
         List of all registrations
     '''
 
-    queryset = Registration.objects.all()
+    queryset = Registration.objects.all().order_by('student')
     serializer_class = RegistrationSerializer
     http_method_names = ['get', 'post', 'put', 'patch']
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]  # noqa: E501
@@ -89,7 +89,7 @@ class ListRegistrationsStudent(generics.ListAPIView):
     '''
 
     def get_queryset(self):
-        queryset = Registration.objects.filter(student_id=self.kwargs['pk'])
+        queryset = Registration.objects.filter(student_id=self.kwargs['pk']).order_by('course')  # noqa: E501
         return queryset
     serializer_class = ListRegistrationsStudentSerializer
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]  # noqa: E501
@@ -105,7 +105,7 @@ class ListRegistrationsCourse(generics.ListAPIView):
     '''
 
     def get_queryset(self):
-        queryset = Registration.objects.filter(course_id=self.kwargs['pk'])
+        queryset = Registration.objects.filter(course_id=self.kwargs['pk']).order_by('student')  # noqa: E501
         return queryset
     serializer_class = ListRegistrationsCourseSerializer
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]  # noqa: E501

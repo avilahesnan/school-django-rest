@@ -37,5 +37,5 @@ def create_courses(quantity_courses):
         c.save()
 
 
-create_students(50)
-create_courses(5)
+create_students(100)
+create_courses(10)

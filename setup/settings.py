@@ -131,6 +131,8 @@ AWS_SECRET_ACCESS_KEY = str(os.getenv('AWS_SECRET_ACCESS_KEY'))
 
 AWS_STORAGE_BUCKET_NAME = str(os.getenv('AWS_STORAGE_BUCKET_NAME'))
 
+AWS_EC2_ADDRESS_IP = str(os.getenv('AWS_EC2_ADDRESS_IP'))
+
 AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
 
 AWS_DEFAULT_ACL = 'public-read'
@@ -206,7 +208,7 @@ REST_FRAMEWORK = {
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
-    'http://18.231.71.146:8000',
+    f'http://{AWS_EC2_ADDRESS_IP}:8000',
 ]
 
 # CACHE CONFIGUTATION
